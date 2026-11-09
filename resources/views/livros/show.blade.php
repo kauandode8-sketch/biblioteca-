@@ -49,6 +49,14 @@
             </ol>
         </nav>
 
+        @if (session('success'))
+            <div class="alert alert-success" role="status">{{ session('success') }}</div>
+        @endif
+
+        @error('livro')
+            <div class="alert alert-danger" role="alert">{{ $message }}</div>
+        @enderror
+
         @if (session('reserva_codigo'))
             <div class="alert alert-success" role="status">
                 Reserva confirmada. Seu código é <strong>{{ session('reserva_codigo') }}</strong>.
@@ -70,6 +78,17 @@
 
                         <h1 id="titulo-livro" class="display-6 mb-1">{{ $livro->titulo }}</h1>
                         <p class="mb-3">por <span class="text-danger">{{ $livro->autor }}</span></p>
+
+                        @if (Auth::guard('funcionarios')->check())
+                            <div class="d-flex gap-2 mb-3">
+                                <a href="{{ route('funcionario.livros.edit', $livro) }}" class="btn btn-outline-danger btn-sm">Editar livro</a>
+                                <form method="POST" action="{{ route('funcionario.livros.destroy', $livro) }}" onsubmit="return confirm('Excluir este livro do acervo?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-outline-secondary btn-sm">Excluir livro</button>
+                                </form>
+                            </div>
+                        @endif
 
                         <div class="d-flex align-items-center gap-2 mb-3" aria-label="Avaliação média de 4,8 de 5">
                             <span class="text-danger" aria-hidden="true">★★★★★</span>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Funcionario;
 use App\Models\Usuario;
 
 return [
@@ -42,6 +43,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'funcionarios' => [
+            'driver' => 'session',
+            'provider' => 'funcionarios',
+        ],
     ],
 
     /*
@@ -65,6 +70,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', Usuario::class),
+        ],
+        'funcionarios' => [
+            'driver' => 'eloquent',
+            'model' => Funcionario::class,
         ],
 
         // 'users' => [

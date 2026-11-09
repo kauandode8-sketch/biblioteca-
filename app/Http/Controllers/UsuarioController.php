@@ -141,4 +141,46 @@ class UsuarioController extends Controller
             'Você não pode acessar este usuário.',
         );
     }
+    public function login (Request $request): JsonResponse
+    {
+        $dados = $request->validate([
+            'email' => 'required',
+            'senha' => 'required',
+        ]);
+ 
+    }
+    $usuario = Usuario: :where('email',"=", $request)->first();
+    
+
+}
+// LOGOUT: APAGAR O TOKEN
+    public function logout(Request $request)
+    {
+        $dados = $request->validate([
+            'usuario_id' => 'required|integer',
+            'token' => 'required|string',
+        ]);
+
+        $token = UsuarioToken::where(
+            'usuario_id',
+            $dados['usuario_id']
+        )
+            ->where('token', $dados['token'])
+            ->where('valido_ate', '>', now())
+            ->first();
+
+        if (!$token) {
+            return response()->json([
+                'message' => 'Token inválido ou já desconectado.',
+                'erro' => 's'
+            ], 401);
+        }
+
+        $token->delete();
+
+        return response()->json([
+            'message' => 'Logout realizado com sucesso!',
+            'erro' => 'n'
+        ], 200);
+    }
 }

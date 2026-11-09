@@ -69,6 +69,27 @@ class FuncionarioController extends Controller
         ], 201);
     }
 
+    public function salvar_funcionario(Request $request): JsonResponse
+    {
+
+        $dados = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:funcionarios,email'],
+            'password' => ['required', 'string', 'min:8'],
+        ]);
+
+        $funcionario = Funcionario::query()->create([
+            'name' => Str::squish($dados['name']),
+            'email' => Str::lower($dados['email']),
+            'password' => $dados['password'],
+        ]);
+
+        return response()->json([
+            'message' => 'Funcionário cadastrado com sucesso.',
+            'funcionario' => $funcionario->only(['id', 'name', 'email']),
+        ], 201);
+    }
+
     public function update(Request $request, Funcionario $funcionario): JsonResponse
     {
         $this->authorizeFuncionario($request);

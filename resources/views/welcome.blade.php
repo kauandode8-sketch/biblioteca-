@@ -26,6 +26,15 @@
                     <a class="nav-link" href="#listas">Minhas listas</a>
                 </div>
                 <div class="d-flex align-items-center gap-3 py-2 py-lg-0">
+                    @if (Auth::guard('funcionarios')->check())
+                        <a href="{{ route('funcionario.livros.create') }}" class="btn btn-danger btn-sm">Cadastrar livro</a>
+                        <form method="POST" action="{{ route('funcionarios.logout') }}">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-secondary btn-sm">Sair da equipe</button>
+                        </form>
+                    @else
+                        <a href="{{ route('funcionarios.login') }}" class="small text-secondary text-decoration-none">Acesso da equipe</a>
+                    @endif
                     <a href="#ajuda" class="btn btn-light btn-sm rounded-circle" aria-label="Ajuda">?</a>
                     <a href="#notificacoes" class="btn btn-light btn-sm rounded-circle" aria-label="Notificações">♧</a>
                     <a href="#perfil" class="d-flex align-items-center gap-2 text-decoration-none text-dark">

@@ -34,6 +34,11 @@ class LivroController extends Controller
         ], 201);
     }
 
+    public function salvar_livro(Request $request): JsonResponse
+    {
+        return $this->store($request);
+    }
+
     public function update(Request $request, Livro $livro): JsonResponse
     {
         $this->authorizeFuncionario($request);

@@ -50,7 +50,7 @@ class CriarFuncionarioInicial extends Command
             'password' => $password,
         ]);
 
-        $this->info('Funcionário inicial criado. Use o endpoint POST /api/funcionarios/login para gerar um token.');
+        $this->info('Funcionário inicial criado. Acesse /funcionario/login para cadastrar livros no site.');
 
         return self::SUCCESS;
     }

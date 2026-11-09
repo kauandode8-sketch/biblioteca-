@@ -7,6 +7,7 @@
     <title>Entrar | Biblio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link href="{{ asset('sesi-theme.css') }}" rel="stylesheet">
+    @vite('resources/js/login.js')
 </head>
 <body>
     <main class="login-page container-fluid min-vh-100 d-flex bg-dark p-3 p-lg-4">
